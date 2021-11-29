@@ -79,7 +79,7 @@ public class UploadController {
 
     @GetMapping("/spotbugreport")
     public String uploadStatus() {
-        return "spotbug";
+        return "/analysis/reports/spotbug";
     }
 
 }
