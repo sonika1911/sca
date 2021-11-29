@@ -73,7 +73,7 @@
       <p>SpotBugs version: 4.0.0</p>
       <p>Code analyzed:</p>
       <ul>
-         <li>C:\Users\sonik\Downloads\static-code-analysis-main (2)\static-code-analysis-main\analysis\input\AssignmentBug.class</li>
+         <li>C:\Users\sonik\Downloads\static-code-analysis-main (2)\static-code-analysis-main\analysis\input\FindBugDemo.class</li>
       </ul>
       <p>
          <br/>
@@ -91,17 +91,12 @@
          </tr>
          <tr class="tablerow0">
             <td>High Priority Warnings</td>
-            <td align="right"/>
-            <td align="right">0.00</td>
-         </tr>
-         <tr class="tablerow1">
-            <td>Medium Priority Warnings</td>
             <td align="right">1</td>
             <td align="right">0.00</td>
          </tr>
          <tr class="tablerow1">
-            <td>Low Priority Warnings</td>
-            <td align="right">2</td>
+            <td>Medium Priority Warnings</td>
+            <td align="right"/>
             <td align="right">0.00</td>
          </tr>
          <tr class="$totalClass">
@@ -109,7 +104,7 @@
                <b>Total Warnings</b>
             </td>
             <td align="right">
-               <b>3</b>
+               <b>1</b>
             </td>
             <td align="right">
                <b>0.00</b>
@@ -126,7 +121,7 @@
       <h2>Contents</h2>
       <ul>
          <li>
-            <a href="#Warnings_STYLE">Dodgy code Warnings</a>
+            <a href="#Warnings_CORRECTNESS">Correctness Warnings</a>
          </li>
          <li>
             <a href="#Details">Details</a>
@@ -140,23 +135,23 @@
          </tr>
          <tr class="tablerow0">
             <td>
-               <a href="#Warnings_STYLE">Dodgy code Warnings</a>
+               <a href="#Warnings_CORRECTNESS">Correctness Warnings</a>
             </td>
-            <td align="right">3</td>
+            <td align="right">1</td>
          </tr>
          <tr class="tablerow1">
             <td>
                <b>Total</b>
             </td>
             <td align="right">
-               <b>3</b>
+               <b>1</b>
             </td>
          </tr>
       </table>
       <h1>Warnings</h1>
       <p>Click on a warning row to see full context information.</p>
       <h2>
-         <a name="Warnings_STYLE">Dodgy code Warnings</a>
+         <a name="Warnings_CORRECTNESS">Correctness Warnings</a>
       </h2>
       <table class="warningtable" width="100%" cellspacing="0">
          <tr class="tableheader">
@@ -165,44 +160,16 @@
          </tr>
          <tr class="tablerow1" onclick="toggleRow('d1e4');">
             <td>
-               <span class="priority-2">DLS</span>
+               <span class="priority-1">IL</span>
             </td>
-            <td>Dead store to $L1 in AssignmentBug.foo()</td>
+            <td>There is an apparent infinite loop in FindBugDemo.main(String[])</td>
          </tr>
          <tr class="detailrow1">
             <td/>
             <td>
                <p id="d1e4" style="display: none;">
-                  <a href="#DLS_DEAD_LOCAL_STORE">Bug type DLS_DEAD_LOCAL_STORE (click for details)</a>
-                  <br/>In class AssignmentBug<br/>In method AssignmentBug.foo()<br/>Local variable stored in JVM register 1<br/>At AssignmentBug.java:[line 6]</p>
-            </td>
-         </tr>
-         <tr class="tablerow0" onclick="toggleRow('d1e22');">
-            <td>
-               <span class="priority-3">SA</span>
-            </td>
-            <td>Self assignment of $L1 in AssignmentBug.foo()</td>
-         </tr>
-         <tr class="detailrow0">
-            <td/>
-            <td>
-               <p id="d1e22" style="display: none;">
-                  <a href="#SA_LOCAL_SELF_ASSIGNMENT">Bug type SA_LOCAL_SELF_ASSIGNMENT (click for details)</a>
-                  <br/>In class AssignmentBug<br/>In method AssignmentBug.foo()<br/>Local variable stored in JVM register 1<br/>At AssignmentBug.java:[line 6]</p>
-            </td>
-         </tr>
-         <tr class="tablerow1" onclick="toggleRow('d1e36');">
-            <td>
-               <span class="priority-3">UC</span>
-            </td>
-            <td>Method AssignmentBug.foo() seems to be useless</td>
-         </tr>
-         <tr class="detailrow1">
-            <td/>
-            <td>
-               <p id="d1e36" style="display: none;">
-                  <a href="#UC_USELESS_VOID_METHOD">Bug type UC_USELESS_VOID_METHOD (click for details)</a>
-                  <br/>In class AssignmentBug<br/>In method AssignmentBug.foo()<br/>At AssignmentBug.java:[line 7]</p>
+                  <a href="#IL_INFINITE_LOOP">Bug type IL_INFINITE_LOOP (click for details)</a>
+                  <br/>In class FindBugDemo<br/>In method FindBugDemo.main(String[])<br/>At FindBugDemo.java:[line 7]<br/>Loop bottom at FindBugDemo.java:[line 8]</p>
             </td>
          </tr>
       </table>
@@ -210,48 +177,11 @@
          <a name="Details">Details</a>
       </h1>
       <h2>
-         <a name="DLS_DEAD_LOCAL_STORE">DLS_DEAD_LOCAL_STORE: Dead store to local variable</a>
+         <a name="IL_INFINITE_LOOP">IL_INFINITE_LOOP: An apparent infinite loop</a>
       </h2>
 
-<p>
-This instruction assigns a value to a local variable,
-but the value is not read or used in any subsequent instruction.
-Often, this indicates an error, because the value computed is never
-used.
-</p>
-<p>
-Note that Sun's javac compiler often generates dead stores for
-final local variables.  Because SpotBugs is a bytecode-based tool,
-there is no easy way to eliminate these false positives.
-</p>
-
-    <h2>
-         <a name="SA_LOCAL_SELF_ASSIGNMENT">SA_LOCAL_SELF_ASSIGNMENT: Self assignment of local variable</a>
-      </h2>
-
-<p> This method contains a self assignment of a local variable; e.g.</p>
-<pre><code>public void foo() {
-    int x = 3;
-    x = x;
-}
-</code></pre>
-<p>
-Such assignments are useless, and may indicate a logic error or typo.
-</p>
-
-    <h2>
-         <a name="UC_USELESS_VOID_METHOD">UC_USELESS_VOID_METHOD: Useless non-empty void method</a>
-      </h2>
-
-<p>Our analysis shows that this non-empty void method does not actually perform any useful work.
-Please check it: probably there's a mistake in its code or its body can be fully removed.
-</p>
-<p>We are trying to reduce the false positives as much as possible, but in some cases this warning might be wrong.
-Common false-positive cases include:</p>
-<ul>
-<li>The method is intended to trigger loading of some class which may have a side effect.</li>
-<li>The method is intended to implicitly throw some obscure exception.</li>
-</ul>
+<p>This loop doesn't seem to have a way to terminate (other than by perhaps
+throwing an exception).</p>
 
     </body>
 </html>

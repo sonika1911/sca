@@ -150,7 +150,7 @@ public class SpotBugService {
         if ("jar".equals(uri.getScheme())) {
             JarURLConnection connection = (JarURLConnection) resource.openConnection();
             URL url = connection.getJarFileURL();
-            return new File(url.toURI());
+            return new File("spotbugs-4.0.0.jar");
         }
 
         Path tempJar = File.createTempFile("SpotBugsAnalysisRunner", ".jar").toPath();
